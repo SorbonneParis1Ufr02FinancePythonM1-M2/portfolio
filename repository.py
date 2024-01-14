@@ -1,4 +1,9 @@
+import numpy as np
 import pandas as pd
+
+
+def get_weights() -> np.array:
+    return np.array([0.5, 0.2, 0.2, 0.1])
 
 
 def get_data():

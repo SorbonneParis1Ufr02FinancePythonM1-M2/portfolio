@@ -1,17 +1,15 @@
-import numpy as np
-
 from model import (
     portfolio_return,
     portfolio_variance,
     portfolio_standard_dev,
     portfolio_cumulative_returns,
 )
-from repository import get_data
-from view import display_chart
+from repository import get_data, get_weights
+from view import display_chart, display_results
 
 
 def main():
-    weights = np.array([0.5, 0.2, 0.2, 0.1])
+    weights = get_weights()
     data = get_data()
 
     # Calculation
@@ -22,11 +20,7 @@ def main():
 
     # Display results
     display_chart(daily_cum_ret, "Portfolio")
-
-
-    print(f"port_return={port_return}")
-    print(f"portfolio variance={str(np.round(port_variance, 4) * 100)}%")
-    print(f"portfolio std={str(np.round(port_standard_dev, 4) * 100)}%")
+    display_results(port_return, port_variance, port_standard_dev)
 
 
 if __name__ == "__main__":
