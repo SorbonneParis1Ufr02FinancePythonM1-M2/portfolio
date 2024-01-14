@@ -40,3 +40,11 @@ def portfolio_standard_dev(weights: np.array, data_portfolio: pd.DataFrame) -> n
         """
     np.testing.assert_almost_equal(np.sum(weights), 1)
     return np.sqrt(portfolio_variance(weights, data_portfolio))
+
+
+def portfolio_cumulative_returns(weights: np.array, data_portfolio: pd.DataFrame):
+    new_column = "Portfolio"
+    returns = data_portfolio.pct_change()
+    returns[new_column] = returns.dot(weights)
+    result = returns[[new_column]]
+    return (1 + result).cumprod()
