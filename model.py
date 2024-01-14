@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-def portfolio_return(weights: np.array, data_portfolio: pd.DataFrame):
+def portfolio_return(weights: np.array, data_portfolio: pd.DataFrame) -> np.float64:
     """
     Calculate expected portfolio performance
     The sum of the weights must be 1
@@ -16,7 +16,7 @@ def portfolio_return(weights: np.array, data_portfolio: pd.DataFrame):
     return np.sum(mean_daily_returns * weights)
 
 
-def portfolio_variance(weights: np.array, data_portfolio: pd.DataFrame):
+def portfolio_variance(weights: np.array, data_portfolio: pd.DataFrame) -> np.float64:
     """
     Calculate expected portfolio variance
     The sum of the weights must be 1
@@ -30,7 +30,7 @@ def portfolio_variance(weights: np.array, data_portfolio: pd.DataFrame):
     return np.dot(weights.T, np.dot(cov_matrix, weights))
 
 
-def portfolio_standard_dev(weights: np.array, data_portfolio: pd.DataFrame):
+def portfolio_standard_dev(weights: np.array, data_portfolio: pd.DataFrame) -> np.float64:
     """
         Calculate expected portfolio standard deviation
         The sum of the weights must be 1
