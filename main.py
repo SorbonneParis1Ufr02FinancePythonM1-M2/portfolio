@@ -1,17 +1,14 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
+
+from repository import get_data
 
 
 def main():
     # https://campus.datacamp.com/courses/introduction-to-portfolio-analysis-in-python/introduction-to-portfolio-analysis?ex=6
-    data = pd.read_csv(
-        r"input\small_portfolio.csv",
-        delimiter=",",
-        index_col="date",
-        parse_dates=["date"],
-    )
+
+    data = get_data()
 
     # Calculate percentage returns
     returns = data.pct_change()
@@ -69,4 +66,5 @@ def main():
 
 
 if __name__ == "__main__":
+    print(dir())
     main()
