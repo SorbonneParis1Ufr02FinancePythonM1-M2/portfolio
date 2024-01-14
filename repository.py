@@ -1,9 +1,12 @@
 import numpy as np
 import pandas as pd
 
+# Proctor & Gamble, Microsoft, JP Morgan and General Electric
+portfolio = {"GE": 0.5, "JPM": 0.2, "MSFT": 0.2, "PG": 0.1}
+
 
 def get_weights() -> np.array:
-    return np.array([0.5, 0.2, 0.2, 0.1])
+    return np.array(portfolio.values())
 
 
 def get_data():
@@ -16,4 +19,4 @@ def get_data():
 
 
 if __name__ == "__main__":
-    print(dir())
+    print(get_weights())
