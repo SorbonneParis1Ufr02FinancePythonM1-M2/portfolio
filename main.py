@@ -12,7 +12,6 @@ from view import display_chart
 
 def main():
     weights = np.array([0.5, 0.2, 0.2, 0.1])
-
     data = get_data()
 
     # Calculation
@@ -23,6 +22,7 @@ def main():
 
     # Display results
     display_chart(daily_cum_ret, "Portfolio")
+
 
     print(f"port_return={port_return}")
     print(f"portfolio variance={str(np.round(port_variance, 4) * 100)}%")
