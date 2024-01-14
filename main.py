@@ -2,36 +2,20 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
+from model import portfolio_return, portfolio_variance, portfolio_standard_dev
 from repository import get_data
 
 
 def main():
-    # https://campus.datacamp.com/courses/introduction-to-portfolio-analysis-in-python/introduction-to-portfolio-analysis?ex=6
+    weights = np.array([0.5, 0.2, 0.2, 0.1])
 
     data = get_data()
 
-    # Calculate percentage returns
+    # # Calculate percentage returns
     returns = data.pct_change()
-
-    # Calculate individual mean returns
-    mean_daily_returns = returns.mean()
-
-    # Define weights for the portfolio
-    weights = np.array([0.5, 0.2, 0.2, 0.1])
-
-    # Calculate expected portfolio performance
-    port_return = np.sum(mean_daily_returns * weights)
-
-    # Print the portfolio return
-    print(port_return)
-
-    # https: // campus.datacamp.com / courses / introduction - to - portfolio - analysis - in -python / introduction - to - portfolio - analysis?ex = 7
-    # Create portfolio returns column
     returns["Portfolio"] = returns.dot(weights)
-
     # Calculate cumulative returns
     daily_cum_ret = (1 + returns).cumprod()
-
     # Plot the portfolio cumulative returns only
     fig, ax = plt.subplots()
     ax.plot(
@@ -41,30 +25,16 @@ def main():
     plt.legend()
     plt.show()
 
-    # https: // campus.datacamp.com / courses / introduction - to - portfolio - analysis - in -python / introduction - to - portfolio - analysis?ex = 9
-    # Get percentage daily returns
-    daily_returns = data.pct_change()
+    # Calculation
+    port_return = portfolio_return(weights, data)
+    port_variance = portfolio_variance(weights, data)
+    port_standard_dev = portfolio_standard_dev(weights, data)
 
-    # Assign portfolio weights
-    weights = np.array([0.05, 0.4, 0.3, 0.25])
-
-    # Calculate the covariance matrix
-    cov_matrix = (daily_returns.cov()) * 250
-
-    # Calculate the portfolio variance
-    port_variance = np.dot(weights.T, np.dot(cov_matrix, weights))
-
-    # Print the result
-    print(str(np.round(port_variance, 4) * 100) + "%")
-
-    # https: // campus.datacamp.com / courses / introduction - to - portfolio - analysis - in -python / introduction - to - portfolio - analysis?ex = 10
-    # Calculate the standard deviation by taking the square root
-    port_standard_dev = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
-
-    # Print the results
-    print(str(np.round(port_standard_dev, 4) * 100) + "%")
+    # Display results
+    print(f"port_return={port_return}")
+    print(f"portfolio variance={str(np.round(port_variance, 4) * 100)}%")
+    print(f"portfolio std={str(np.round(port_standard_dev, 4) * 100)}%")
 
 
 if __name__ == "__main__":
-    print(dir())
     main()
