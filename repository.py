@@ -1,22 +1,27 @@
 import numpy as np
-import pandas as pd
+import yfinance as yf
 
-# Proctor & Gamble, Microsoft, JP Morgan and General Electric
 portfolio = {"GE": 0.5, "JPM": 0.2, "MSFT": 0.2, "PG": 0.1}
+field_to_keep = "Adj Close"
+begin_date = "2015-01-02"
+end_date = "2018-03-27"
 
 
 def get_weights() -> np.array:
-    return np.array(portfolio.values())
+    return np.array(list(portfolio.values()))
 
 
 def get_data():
-    return pd.read_csv(
-        r"input\small_portfolio.csv",
-        delimiter=",",
-        index_col="date",
-        parse_dates=["date"],
-    )
+    # change here !!!!!!!!!!!!!
+    tickers = list(portfolio.keys())
+    data = yf.download(tickers, start=begin_date, end=end_date)
+    return data[field_to_keep]
 
 
 if __name__ == "__main__":
     print(get_weights())
+    print("*" * 20)
+    results = get_data()
+    print(results.columns)
+    print(results.columns.nlevels)
+    print(results)
