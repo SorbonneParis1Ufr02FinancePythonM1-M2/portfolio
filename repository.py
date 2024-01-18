@@ -1,27 +1,39 @@
+import os
+from typing import Dict
+
 import numpy as np
 import yfinance as yf
 
-portfolio = {"GE": 0.5, "JPM": 0.2, "MSFT": 0.2, "PG": 0.1}
-field_to_keep = "Adj Close"
-begin_date = "2015-01-02"
-end_date = "2018-03-27"
+from constants import CONFIG_FILE
+from helpers import get_toml_data
 
 
-def get_weights() -> np.array:
-    return np.array(list(portfolio.values()))
+def get_config() -> Dict:
+    path = os.path.join(os.getcwd(), CONFIG_FILE)
+    return get_toml_data(path)
 
 
-def get_data():
-    # change here !!!!!!!!!!!!!
-    tickers = list(portfolio.keys())
-    data = yf.download(tickers, start=begin_date, end=end_date)
-    return data[field_to_keep]
+def get_weights(config: Dict) -> np.array:
+    return np.array(list(config["portfolio"].values()))
+
+
+def get_data(config: Dict):
+    tickers = list(config["portfolio"].keys())
+    data = yf.download(
+        tickers,
+        start=config["initialisation"]["begin_date"],
+        end=config["initialisation"]["end_date"],
+    )
+    return data[config["initialisation"]["field_to_keep"]]
 
 
 if __name__ == "__main__":
-    print(get_weights())
+    conf = get_config()
+    print(get_weights(conf))
     print("*" * 20)
-    results = get_data()
+    results = get_data(conf)
     print(results.columns)
     print(results.columns.nlevels)
     print(results)
+    print("toml", "-" * 20)
+    print(get_config())

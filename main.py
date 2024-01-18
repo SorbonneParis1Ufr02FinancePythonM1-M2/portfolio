@@ -4,13 +4,14 @@ from model import (
     portfolio_standard_dev,
     portfolio_cumulative_returns,
 )
-from repository import get_data, get_weights
+from repository import get_data, get_weights, get_config
 from view import display_chart, display_results
 
 
 def main():
-    weights = get_weights()
-    data = get_data()
+    config = get_config()
+    weights = get_weights(config)
+    data = get_data(config)
 
     # Calculation
     daily_cum_ret = portfolio_cumulative_returns(weights, data)
