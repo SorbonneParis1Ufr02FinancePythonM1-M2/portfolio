@@ -8,3 +8,14 @@ GE = 0.5
 JPM = 0.2
 MSFT = 0.2
 PG = 0.1
+
+[view]
+column_values = "Values"
+return = "Portfolio return"
+variance = "Portfolio variance"
+std = "Standard veviation"
+
+[chart]
+color= "purple"
+label = "Portfolio"
+column = "Portfolio"
