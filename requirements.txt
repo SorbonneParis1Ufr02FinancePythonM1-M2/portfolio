@@ -4,3 +4,4 @@ pandas
 setuptools
 yfinance
 tomli
+pandasgui

@@ -44,12 +44,18 @@ def portfolio_standard_dev(weights: np.array, data_portfolio: pd.DataFrame) -> n
     return np.sqrt(portfolio_variance(weights, data_portfolio))
 
 
-def portfolio_cumulative_returns(weights: np.array, data_portfolio: pd.DataFrame):
-    new_column = "Portfolio"
+def portfolio_cumulative_returns(weights: np.array, data_portfolio: pd.DataFrame, config: Dict):
+    new_column = config["initialisation"]["portfolio_column"]
+    returns = asset_and_portfolio_cumulative_returns(weights, data_portfolio, config)
+    result = returns[[new_column]]
+    return result
+
+
+def asset_and_portfolio_cumulative_returns(weights: np.array, data_portfolio: pd.DataFrame, config: Dict):
+    new_column = config["initialisation"]["portfolio_column"]
     returns = data_portfolio.pct_change()
     returns[new_column] = returns.dot(weights)
-    result = returns[[new_column]]
-    return (1 + result).cumprod()
+    return (1 + returns).cumprod()
 
 
 def get_portfolio_indicators(weights: np.array, data_portfolio: pd.DataFrame, config: Dict) -> Dict:
@@ -63,4 +69,3 @@ def get_portfolio_indicators(weights: np.array, data_portfolio: pd.DataFrame, co
     results[config['view']['std']] = port_standard_dev
 
     return results
-

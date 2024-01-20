@@ -2,12 +2,18 @@
 field_to_keep = "Adj Close"
 begin_date = "2015-01-02"
 end_date = "2018-03-27"
+portfolio_column = "Portfolio"
 
 [portfolio]
 GE = 0.5
 JPM = 0.2
 MSFT = 0.2
 PG = 0.1
+
+[view_mode]
+print = true
+pandasgui = true
+chart = true
 
 [view]
 column_values = "Values"
